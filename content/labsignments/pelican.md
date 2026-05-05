@@ -393,15 +393,15 @@ To be specific, the spirit of the assignment is to have you express yourself in 
 
 You should be proud of each mode, and leverage CSS *in combination* with your creativity to make each shine. Each should be a unique experience (more on this later). 
 
-You **can** break the CSS requirements listed above in order deliver on your ideas. Conversly, you can follow the CSS requirements perfectly and fail to recieve full marks if it seems like you tried to make as few changes between modes as possible. 
+You **can** break the CSS requirements listed above in order deliver on your ideas. Conversely, you can follow the CSS requirements perfectly and fail to receive full marks if it seems like you tried to make as few changes between modes as possible. 
 
 ## Different layouts arise from different user experiences
 
 So how can you be sure you'll get full marks for having 3 different layouts/styles if following the CSS requirements isn't enough? 
 
-The answer is to construct different user experiences. Once you have the Gutenberg content displaying with no CSS on your website, stop. The temptation for your first mode will be to 'make it look fancy/minimal/90s', this is a trap.
+The answer is to construct different user experiences. Once you have the Gutenberg content displaying with no CSS on your website, stop.
 
->The temptation for your first mode will be to 'make it look fancy/minimal/90s', this is a trap.
+The temptation for your first mode will be to 'make it look fancy/minimal/90s', this is a trap.
 
 Instead take some time and think about the content. They are books. Maybe you picked the books according to some theme. How might a user want to interact with this content?
 
@@ -468,7 +468,7 @@ As mentioned before:
 
 It is a trap because after you do it, you're going to be tempted to take the one mode you've made, and just 'tweak' it to create the other 2. 
 
-The following 4 screenshots all show the same layout. A student submitting the modes below would recieve points for only 1 layout.
+The following 4 screenshots all show the same layout. A student submitting the modes below would receive points for only 1 layout.
 
 <img src="{attach}images/bad-1.png" alt="bad-layout-1" width="600"/>
 <img src="{attach}images/bad-2.png" alt="bad-layout-2" width="600"/>
@@ -597,11 +597,13 @@ Violation of the restrictions will result in a mark of zero.
 
 Make sure you push to GitHub classroom **BEFORE 4PM on Monday!** You will not be able to push after that!
 
-Submit a link to your repo in the form `https://github.com/uofa-cmput404/s25-labsignment-django-yourgithubname/commit/bunch-of-numbers` on eClass. **Do not** submit a link to a branch, a file, or the clone URL.
+Submit a link to your repo in the form `https://github.com/uofa-cmput404/f25-labsignment-pelican-yourgithubname/commit/bunch-of-numbers` on Canvas. **Do not** submit a link to a branch, a file, or the clone URL.
 
 <p class="warning">If you do not submit a link to your COMMIT on Canvas on time using the correct format above, you will get a zero.</p>
 
 You can submit and then resubmit as many times as you want before the deadline, so submit early and often.
+
+* [How to avoid Force Push & Rebase]({filename}/general/dontforcepush.md)
 
 # Collaboration
 
@@ -610,3 +612,5 @@ You can submit and then resubmit as many times as you want before the deadline, 
 * Any source code you got from anywhere else must be cited in the source code. This includes code from LLMs.
 * You can only use source code that **you understand**: see the [lab marking info]({filename}/general/labs.md#lab-marking)
 * For more information see the collaboration section in the outline: [{filename}/general/outline.md#consultation-assignments-labs]
+
+

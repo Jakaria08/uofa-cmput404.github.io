@@ -43,7 +43,7 @@ Activity Pub is great, but too complex for a class project.
 We also won't be adding much in the way of encryption or security
 to this platform. We're keeping it simple and restful.
 
-Choose at least 4 other groups to work with!
+Choose at least 3 other groups to work with!
 
 ## Scenario 
 
@@ -61,7 +61,7 @@ Steph's node will process events at her inbox and record the
 comments and likes appropriately.
 
 Then I write a public entry, a public service announcement (PSA)
-about how public service announcements are pretentious preformative
+about how public service announcements are pretentious performative
 social media, and you shouldn't make them. The irony is lost on me.
 I make an unlisted image entry that contains an image for the PSA
 and reference it from my PSA entry. Nonetheless, my node records my
@@ -152,7 +152,7 @@ Entries, likes, comments, follows are all sent to the inboxes of the authors tha
     * As an author, I want anyone following me to see my unlisted and public entries in their stream.
     * As an author, I want everyone to see my public entries in their stream.
     * As an author, I want everyone to be able to see my public and unlisted entries, if they have a link to it.
-    * As an author, I don't anyone who isn't a friend to be able to see my friends-only entries and images, so I can feel safe about writing.
+    * As an author, I don't want anyone who isn't a friend to be able to see my friends-only entries and images, so I can feel safe about writing.
     * As an author, I don't want anyone except the node admin to see my deleted entries.
     * As an author, entries I create should always be visible to me until they are deleted, so I can find them to edit them or review them or get the link or whatever I want to do with them.
 
@@ -193,7 +193,7 @@ Entries, likes, comments, follows are all sent to the inboxes of the authors tha
         * Use Postgres on Heroku and SQLite for testing on your local machine.
         * Other DBaaS (e.g. Firebase) is forbidden.
     * As a node admin, I don't want arrays to be stored in database fields, so that my node won't get slower over time.
-    * As a node admin, I don't want to have seperate frontend and backend web servers, so I don't have to manage two web servers/services.
+    * As a node admin, I don't want to have separate frontend and backend web servers, so I don't have to manage two web servers/services.
     * As a node admin, I want deleted entries stay in the database and only be removed from the UI and API, so I can see what was deleted.
     * As a node admin, I want my node's UI to only communicate with my nodes web server, so I can prevent XSS.
     * As a node admin, I want the API objects (authors, entries, etc.) to be [identified by their full URL](#ids), to prevent collisions with other node's numbering schemes. *⧟ Part 3-5 only.*
@@ -354,6 +354,9 @@ Edited Friends Only    | push | from           | to `inbox`              |      
 Commented Public       | push | to `inbox`     | from                    | from                       | from <!-- @LT-IGNORE:CONSECUTIVE_SPACES@ @LT-IGNORE:WHITESPACE_RULE@ -->
 Commented Unlisted     | push | to `inbox`     | from                    | from                       | from <!-- @LT-IGNORE:CONSECUTIVE_SPACES@ @LT-IGNORE:WHITESPACE_RULE@ -->
 Commented Friends Only | push | to `inbox`     | from                    |                            | <!-- @LT-IGNORE:CONSECUTIVE_SPACES@ @LT-IGNORE:WHITESPACE_RULE@ -->
+Commented Public       | push | from           | *not yet implemented*   | *not yet implemented*      | *not yet implemented* <!-- @LT-IGNORE:CONSECUTIVE_SPACES@ @LT-IGNORE:WHITESPACE_RULE@ -->
+Commented Unlisted     | push | from           | *not yet implemented*   | *not yet implemented*      | <!-- @LT-IGNORE:CONSECUTIVE_SPACES@ @LT-IGNORE:WHITESPACE_RULE@ -->
+Commented Friends Only | push | from           | *not yet implemented*   |                            | <!-- @LT-IGNORE:CONSECUTIVE_SPACES@ @LT-IGNORE:WHITESPACE_RULE@ -->
 Liked Public           | push | to `inbox`     | from                    | from                       | from <!-- @LT-IGNORE:CONSECUTIVE_SPACES@ @LT-IGNORE:WHITESPACE_RULE@ -->
 Liked Unlisted         | push | to `inbox`     | from                    | from                       | from <!-- @LT-IGNORE:CONSECUTIVE_SPACES@ @LT-IGNORE:WHITESPACE_RULE@ -->
 Liked Friends Only     | push | to `inbox`     | from                    |                            | <!-- @LT-IGNORE:CONSECUTIVE_SPACES@ @LT-IGNORE:WHITESPACE_RULE@ -->
@@ -367,9 +370,11 @@ View Deleted           | pull |                |                         |      
 View Following         | pull | to `followers` | optional from           | optional from              | <!-- @LT-IGNORE:CONSECUTIVE_SPACES@ @LT-IGNORE:WHITESPACE_RULE@ -->
 
 Notes on the above tables:
+
 * This can work entirely on push from the author's server to another author's inbox.
 * Yes, this means that only the local node (node where the entry came from) will have a complete list of comments/likes. Mastodon/Diaspora also have this problem.
-* "Unfollow" the API is missing this functionality.
+* "Unfollow" the node-to-node inbox API is missing this functionality, however it should work locally.
+    * When author1 on node1 unfollows author2 on node2: node1 should not add author2's posts to author1's stream, even though it will continue to receive them from node2.
 * Yes, a node may have an out of date list of followers if a remote follower unfollows.
 * "View Friends-Only" the API is missing this functionality. 
 
@@ -404,7 +409,7 @@ If something is paginated it has query options:
 
 ## Who talks to Who
 
-* Required: The backends talk to each other, mostly trough POST requests to the `inbox` URLs for remote authors.
+* Required: The backends talk to each other, mostly through POST requests to the `inbox` URLs for remote authors.
 * Optional: The frontend talks to the backend for the same node.
 * Forbidden: The frontend talks to a backend of another node. 
  
@@ -555,7 +560,7 @@ Hint: In Django, set `unique=True` on the field. Then use `models.ForeignKey` wi
         "displayName":"Lara Croft",
         // URL of the user's HTML profile page
         "web":"http://nodebbbb/authors/222",
-        // HATEOS url for Github API
+        // HATEOAS url for Github API
         "github": "http://github.com/laracroft",
         "profileImage": "http://nodebbbb/api/authors/222/entries/217/image"
     },
@@ -563,7 +568,7 @@ Hint: In Django, set `unique=True` on the field. Then use `models.ForeignKey` wi
     "comments":{
         "type":"comments",
         // this may or may not be the same as page for the entry,
-        // depending if there's a seperate URL to just see the comments
+        // depending if there's a separate URL to just see the comments
         "web":"http://nodebbbb/authors/222/entries/249",
         "id":"http://nodebbbb/api/authors/222/entries/249/comments"
         // comments.page_number, comments.size, comments.count,
@@ -601,7 +606,7 @@ Hint: In Django, set `unique=True` on the field. Then use `models.ForeignKey` wi
                 "id":"http://nodeaaaa/api/authors/111/commented/130",
                 "entry": "http://nodebbbb/api/authors/222/entries/249",
                 // this may or may not be the same as page for the entry,
-                // depending if there's a seperate URL to just see the one comment in html
+                // depending if there's a separate URL to just see the one comment in html
                 "web": "http://nodebbbb/authors/222/entries/249"
                 // it could also be something like
                 // "web":"http://nodeaaaa/api/authors/greg/comments/130"
@@ -623,7 +628,7 @@ Hint: In Django, set `unique=True` on the field. Then use `models.ForeignKey` wi
     "likes":{
         "type":"likes",
         // this may or may not be the same as page for the entry,
-        // depending if there's a seperate URL to just see the comments
+        // depending if there's a separate URL to just see the comments
         "web":"http://nodeaaaa/authors/222/entries/249"
         "id":"http://nodeaaaa/api/authors/222/entries/249/likes"
         // likes.page, likes.size, likes.count,
@@ -769,7 +774,7 @@ Hint: In Django, set `unique=True` on the field. Then use `models.ForeignKey` wi
         "type":"likes",
         // this may or may not be the same as page for the entry
         // this may or may not be the same as page for the comment
-        // depending if there's a seperate URL to just see the comments
+        // depending if there's a separate URL to just see the comments
         "web":"http://nodeaaaa/authors/222/entries/249"
         "id":"http://nodeaaaa/api/authors/111/commented/130/likes"
         // likes.page, likes.size, likes.count,
@@ -814,7 +819,7 @@ Hint: In Django, set `unique=True` on the field. Then use `models.ForeignKey` wi
 {
     "type":"comments",
     // this may or may not be the same as page for the entry,
-    // depending if there's a seperate URL to just see the comments
+    // depending if there's a separate URL to just see the comments
     "web":"http://nodebbbb/authors/222/entries/249",
     "id":"http://nodebbbb/api/authors/222/entries/249/comments"
     // comments.page, comments.size, comments.count,
@@ -852,7 +857,7 @@ Hint: In Django, set `unique=True` on the field. Then use `models.ForeignKey` wi
             "id":"http://nodeaaaa/api/authors/111/commented/130",
             "entry": "http://nodebbbb/api/authors/222/entries/249",
             // this may or may not be the same as page for the entry,
-            // depending if there's a seperate URL to just see the one comment in html
+            // depending if there's a separate URL to just see the one comment in html
             "web": "http://nodebbbb/authors/222/entries/249"
             // it could also be something like
             // "web":"http://nodeaaaa/api/authors/greg/comments/130"
@@ -920,7 +925,7 @@ Hint: In Django, set `unique=True` on the field. Then use `models.ForeignKey` wi
 {
     "type":"likes",
     // this may or may not be the same as page for the entry,
-    // depending if there's a seperate URL to just see the comments
+    // depending if there's a separate URL to just see the comments
     "web":"http://nodeaaaa/authors/222/entries/249"
     "id":"http://nodeaaaa/api/authors/222/entries/249/likes"
     // likes.page, likes.size, likes.count,
@@ -1044,19 +1049,38 @@ Hint: In Django, set `unique=True` on the field. Then use `models.ForeignKey` wi
 }
 ```
 
+## Following API
+
+* This API is only for a local author managing who they follow through the API. All requests must be authenticated for AUTHOR_SERIAL.
+* URL: `://service/api/authors/{AUTHOR_SERIAL}/following` (must be authenticated)
+    * GET [local]: get a list of authors who `AUTHOR_SERIAL` is following
+* URL: `://service/api/authors/{AUTHOR_SERIAL}/following/{FOREIGN_AUTHOR_FQID}` (must be authenticated)
+    * Note: foreign author ID should be a percent encoded URL of the foreign author. An example URL would be:
+        * `http://example-node-1/api/authors/178aba49-ca39-4741-b227-f40d072b1222/following/http%3A%2F%2Fexample-node-2%2Fauthors%2F5f57808f-0bc9-4b3d-bdd1-bb07c976d12d`
+    * DELETE [local]: `AUTHOR_SERIAL` unfollows `FOREIGN_AUTHOR_FQID` (must be authenticated)
+    * GET [local] `AUTHOR_SERIAL` checks if they are following `FOREIGN_AUTHOR_FQID`
+    * PUT [local] `AUTHOR_SERIAL` generates a follow request (if none exists) for `FOREIGN_AUTHOR_FQID`. If foreign author is on a different node, author's node should generate a follow request and POST it to foreign author's inbox API endpoint. 
+
+
 ## Followers API
 
-* URL: `://service/api/authors/{AUTHOR_SERIAL}/followers`
-    * GET [local, remote]: get a list of authors who are `AUTHOR_SERIAL`'s followers
-* URL: `://service/api/authors/{AUTHOR_SERIAL}/followers/{FOREIGN_AUTHOR_FQID}`
+* All requests must be authenticated for AUTHOR_SERIAL [local] or FOREIGN_AUTHOR's server must be authenticated [remote].
+* URL: `://service/api/authors/{AUTHOR_SERIAL}/followers/{FOREIGN_AUTHOR_FQID}` (local author is being followed)
     * Note: foreign author ID should be a percent encoded URL of the foreign author. An example URL would be:
         * `http://example-node-1/api/authors/178aba49-ca39-4741-b227-f40d072b1222/followers/http%3A%2F%2Fexample-node-2%2Fauthors%2F5f57808f-0bc9-4b3d-bdd1-bb07c976d12d`
+    * PUT [local]: accept `FOREIGN_AUTHOR_FQID` as a follower of `AUTHOR_SERIAL` (must be authenticated)
+        * Used by `AUTHOR_SERIAL` to accept follow request.
+        * Must return 404 if there is no matching follow request.
     * DELETE [local]: remove `FOREIGN_AUTHOR_FQID` as a follower of `AUTHOR_SERIAL` (must be authenticated)
-    * PUT [local]: Add `FOREIGN_AUTHOR_FQID` as a follower of `AUTHOR_SERIAL` (must be authenticated)
+        * REQUIRED: Used by `AUTHOR_SERIAL` to deny follow request.
+        * OPTIONAL: Used to revoke follow request once it's already been accepted. (There's no user story for revoking follow requests after they're accepted.)
+        * Must return 404 if there is no matching follow request or follower.
     * GET [local, remote] check if `FOREIGN_AUTHOR_FQID` is a follower of `AUTHOR_SERIAL`
         * Should return 404 if they're not
-        * This is how you can check if follow request is accepted
-        
+        * This is how you can check if follow request is accepted 
+        * Use by remote server is optional: there's no need to know whether a follow request was accepted, but it can improve the UI.
+        * Implementation of the GET endpoint is required: only a different node actually using it is optional.
+
 * Example: GET `http://nodeaaa/api/authors/111/followers`
 
 ```js
@@ -1099,10 +1123,13 @@ Hint: In Django, set `unique=True` on the field. Then use `models.ForeignKey` wi
    
 ## Follow Request API
 
+* URL: `://service/api/authors/{AUTHOR_SERIAL}/follow_requests`
+    * `GET` [local]:
+        * Used by `AUTHOR_SERIAL` to check who wants to follow them through the API
 * URL: `://service/api/authors/{AUTHOR_SERIAL}/inbox`
     * `POST` [remote]: send a follow request to `AUTHOR_SERIAL`
         * `AUTHOR_SERIAL` will be the `object` below
-* When author 1 tries to follow author 2, author 1's node send the follow request to author 2's node.
+* When author 1 (actor) tries to follow author 2 (object), author 1's node send the follow request to author 2's node.
 * If the author 2 accepts the Follow Request then author 1 is following author 2.
     * If author 2 is also already following author 1, then they are now friends.
 * Author2's node does not need to tell Author1's node if follow was accepted or rejected.
@@ -1169,14 +1196,14 @@ shortcut to get the image if authenticated to see it.
 
 * URL: `://service/api/authors/{AUTHOR_SERIAL}/inbox`
     * `POST` [remote]: comment on an entry by `AUTHOR_SERIAL`
-    * Body is a [comment object](#example-comment)
+    * Body is a [comment object](#example-comment-object)
 * URL: `://service/api/authors/{AUTHOR_SERIAL}/entries/{ENTRY_SERIAL}/comments`
     * `GET` [local, remote]: the comments on the entry
-    * Body is a ["comments" object](#example-comments)
+    * Body is a ["comments" object](#example-comments-object)
 * URL: `://service/api/entries/{ENTRY_FQID}/comments`
     * `GET` [local, remote]: the comments on the entry (that our server knows about)
-    * Body is a ["comments" object](#example-comments)
-* URL: `://service/api/authors/{AUTHOR_SERIAL}/entries/{ENTRY_SERIAL}/comment/{REMOTE_COMMENT_FQID}`
+    * Body is a ["comments" object](#example-comments-object)
+* URL: `://service/api/authors/{AUTHOR_SERIAL}/entries/{ENTRY_SERIAL}/comments/{REMOTE_COMMENT_FQID}`
     * GET [local, remote] get the comment
 * Example: GET `http://nodebbbb/api/authors/222/entries/249/comments/http%3A%2F%2Fnodeaaaa%2Fapi%2Fauthors%2F111%2Fcommented%2F130`:
 
@@ -1241,7 +1268,7 @@ shortcut to get the image if authenticated to see it.
         "id":"http://nodeaaaa/api/authors/111/commented/130",
         "entry": "http://nodebbbb/api/authors/222/entries/249",
         // this may or may not be the same as page for the entry,
-        // depending if there's a seperate URL to just see the one comment in html
+        // depending if there's a separate URL to just see the one comment in html
         "web": "http://nodebbbb/authors/222/entries/249"
         // it could also be something like
         // "web":"http://nodeaaaa/authors/greg/comments/130"
@@ -1270,7 +1297,7 @@ shortcut to get the image if authenticated to see it.
     "id":"http://nodeaaaa/api/authors/111/commented/130",
     "entry": "http://nodebbbb/api/authors/222/entries/249",
     // this may or may not be the same as page for the entry,
-    // depending if there's a seperate URL to just see the one comment in html
+    // depending if there's a separate URL to just see the one comment in html
     "web": "http://nodebbbb/authors/222/entries/249"
     // it could also be something like
     // "web":"http://nodeaaaa/authors/greg/comments/130"
@@ -1336,10 +1363,9 @@ Local APIs, such as "stream", that aren't specified here, are up to your design.
 * Implement the webservice as described in the user stories
 * Provide a webservice interface that is restful
 * Provide a web UI interface that is usable
-* Prove your project by connecting with at least 1 clone of your project. (Parts 3-5)
+* Prove your project by connecting with other teammate's clone of your project. (Parts 3-5)
 * Prove your project by connecting with at least 2 other groups. (Parts 4-5)
-* Show that you are making a serious effort to connect with at least 4 other groups. (Parts 4-5)
-* Prove your project by connecting with at least 3 other groups. (Part 5)
+* Show that you are making a serious effort to connect with at least 3 other groups. (Parts 4-5)
 * Make a video demo of your blog (desktop-recorder is ok) 
     * Your video may **not** be a part of your presentation.
 * Make a presentation about your blog 
@@ -1469,9 +1495,9 @@ Frontend (Selenium, etc.) tests are not required. Code coverage (line coverage, 
         <li>End up fighting among themselves because only one teammember can understand the framework</li>
     </ul></li>
 </ul>
-<p>If you want to use React or a similar frontend framework such as Angular, Vue, Solid, Svelte... (there are dozens of these), despite these warnings, then all team members must fill out the frontend framework form. We offer this option only becuase some students want the experience for their resumé. However, it involves extra work. If <strong style="color: darkred;">all team members</strong> do not fill out the frontend framework form agreeing to use a front end framework despite the extra work required and the above warnings then you are not allowed to use a frontend frameworks, and using them will result in a mark of zero.</p>
+<p>If you want to use React or a similar frontend framework such as Angular, Vue, Solid, Svelte... (there are dozens of these), despite these warnings, then all team members must fill out the frontend framework form. We offer this option only because some students want the experience for their resumé. However, it involves extra work. If <strong style="color: darkred;">all team members</strong> do not fill out the frontend framework form agreeing to use a front end framework despite the extra work required and the above warnings then you are not allowed to use a frontend frameworks, and using them will result in a mark of zero.</p>
 
-<a href="https://docs.google.com/forms/d/e/1FAIpQLSeYzORuvzpjXpkHzpscFLMu4CZzOgIQNiWj_AtLOJTHT4hHHg/viewform?usp=dialog" style="font-size:200%">Frontend Framework Consent Form</a>
+<a href="https://docs.google.com/forms/d/e/1FAIpQLSeyWiFo0WMJ5VJirhF6YnVmrBjUU1A5EQPalbm4HYrcCvCmFg/viewform?usp=dialog" style="font-size:200%">Frontend Framework Consent Form</a>
 
 <ul>
     <li>Backend frameworks are limited to Django and Flask only. We suggest Django. Flask requires extra work.</li>
@@ -1584,7 +1610,7 @@ The most successful teams:
 
 ## Overall Marking
 
-* Excellent 8 (A+): Clean code. Meets the requirements and ads extra polish. Everything is tested properly. Passes all tests. The API is documented in detail. The API is implemented as specified, and adds extra for compatibility. The UI meets all requirements, and has extra polish.
+* Excellent 8 (A+): Clean code. Meets the requirements and adds extra polish. Everything is tested properly. Passes all tests. The API is documented in detail. The API is implemented as specified, and adds extra for compatibility. The UI meets all requirements, and has extra polish.
 * Good 7 (B+): Code is mostly clean but has some rough spots. At most a couple of minor bugs. Almost all the requirements are met. Everything is tested. Passes almost all tests. Almost everything is documented. Almost all the API is implemented according to spec.
 * Satisfactory 6 (C+): Code is low quality but working. Some bugs. Inconsistency. ¾ of the requirements are met. Almost everything is tested. Passes most tests. Most things are documented. API is implemented but doesn't meet spec.
 * Unsatisfactory 4 (D): There are significant bugs and issues. ½ of the requirements are met. ½ the tests exist and pass. At least ½ of the documentation is present. At least ½ of the API exists and works. At least ½ of the UI exists and works. At least ½ of the API exists and works. <!-- @LT-IGNORE:ENGLISH_WORD_REPEAT_BEGINNING_RULE@ -->
@@ -1592,6 +1618,8 @@ The most successful teams:
 * Failure 0 (F): Missing. Not attempted. Not complete enough to make an evaluation. Violated a restriction. 
 
 UI amount complete is marked by your TA testing user stories manually.
+
+If a user story is partially complete, it will count the same as being incomplete.
 
 # Project Parts
 
@@ -1610,7 +1638,8 @@ You must form a group with only students from your same lab section. You can hav
 Do not submit a clone link or a link to a branch or file.
 
 * 1 mark
-* Submitted on Canvas by all members
+* Join your team on canvas
+* Join your team's github via the github classroom link in the project part 0 assignment in canvas
 * 1 GitHub repo with a README and LICENSE
 * Team name is a CSS colour name
 
@@ -1643,7 +1672,7 @@ https://github.com/uofa-cmput404/f24-project-orange/commit/8e2cac3a0c0fdd01f039e
 
 * Every team member must submit the link to Canvas.
 * If you don't submit the link to Canvas you will get a zero for the project part regardless of what your team gets.
-* Submitted frontend framework form if using a frontend framework. (Link coming soon...)
+* Submitted frontend framework form if using a frontend framework.  <https://docs.google.com/forms/d/e/1FAIpQLSdB01QRXRJxnBJeFzYs9zAV7bj8IyWWGK7OanEhUyxpk9oWtw/viewform?usp=publish-editor>
 
 ### Marking
 
@@ -1661,7 +1690,7 @@ https://github.com/uofa-cmput404/f24-project-orange/commit/8e2cac3a0c0fdd01f039e
     * Tool use: Use of Git, GitHub issues, etc. is Evidence and Obvious. Commits/merges/PRs are small and frequent. Commit messages are helpful information for teammates. All the teammates are working at the same time, and using GitHub **and git** to help communicate and improve teamwork. You laugh in the face of merge conflicts! Well organized repository and branches. 
     * TA Walkthrough: Able to walk through ½ user stories with UI and API. No snags, bugs, last second workarounds, or missing pieces. Code is easily located. Documentation is easily located.
     * Web Service API Documentation: Well documented. Highly detailed. Clear descriptions, has useful example requests and responses from your API for every use of the API and ½ of user stories. If using automated documentation generation, there is extra documentation added on top of that.
-    * Standards & Code Style: Adheres to standards, code is well organized and clean. Code is easy to read. Comments add to code readablility when necessary. Code meets Python, JS, HTML and CS style guides. Excellent indentation, naming. Code units only do one thing. It's easy to find the code responsible for handling any of the ½ user stories.
+    * Standards & Code Style: Adheres to standards, code is well organized and clean. Code is easy to read. Comments add to code readability when necessary. Code meets Python, JS, HTML and CS style guides. Excellent indentation, naming. Code units only do one thing. It's easy to find the code responsible for handling any of the ½ user stories.
 * Good
     * User Stories UI: Almost ½ of the user stories are usable using the UI.
     * User Stories API: Almost ½ of the user stories with a relevant API are usable using the API. Adheres to the specification.
@@ -1789,6 +1818,15 @@ https://github.com/uofa-cmput404/f24-project-orange/commit/8e2cac3a0c0fdd01f039e
     * Standards & Code Style: Project doesn't run/load.
 
 ## Project Part 3: Distribution
+
+Project part 3 includes user stories from part 1, user stories from part 2, and user stories marked with  ⧟ new user stories. All of them. 
+They should all be working with multiple nodes. All of them!
+
+If a user story could work with multiple nodes, it should work with multiple nodes! For example:
+
+* As an author, I want a "stream" which shows all the entries I should know about, so I don't have to switch between different pages.
+
+This user story now also includes entries from remote nodes. The same principle applies to every user story in the list of user stories.
 
 ### Requirements
 
@@ -2039,7 +2077,7 @@ During the other team's presentations:
     * **Presentation:** Presentation within time, shows excellent teamwork, promotes the application, uses the live application to show functionality.
     * **Video**: Video is well presented and not boring, less than 2 minutes. It is fun promotes your project. Makes people want to try your app out. Posted to the discussion forum thread to share it with everyone in the class.
     * Web Service Coordination: Team's node coordinates with **two** other team's nodes successfully. All user stories that could involve two nodes work node-to-node with **two** other teams nodes.
-    * Inter-Team Coordination: Significant progress in getting node coordinating with **three** other teams nodes. (Four includes the two teams above.)
+    * Inter-Team Coordination: Significant progress in getting node coordinating with **three** other teams nodes. (Three includes the two teams above.)
     * Addressing Feedback: TA's suggestions were implemented, TA approves of implementation set.
     * User Stories UI: All the user stories are usable using the UI. 
     * User Stories API: All the user stories with a relevant API are usable using the API. Adheres to the specification.

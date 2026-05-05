@@ -161,7 +161,7 @@ You have several options to make sure this doesn't happen:
 
 ## Prepare your Repo
 
-1. Get the GitHub classroom link from eClass, create your assignment, and clone it.
+1. Get the GitHub classroom link from Canvas, create your assignment, and clone it.
 2. Create an appropriate `.gitignore` file, to prevent unwanted files being commited to your repository.
 
 Place this gitignore within the root of your project. You can combine [this one](https://github.com/github/gitignore/blob/main/Python.gitignore) and [this one](https://github.com/github/gitignore/blob/main/Node.gitignore) and [this one](https://github.com/django/django/blob/main/.gitignore) for your django+node project. Double check you're not staging any unwanted files before you commit. The `git status` command can help with that.
@@ -814,25 +814,13 @@ Create a file in the `polls` directory named `serializers.py` and add the follow
 from rest_framework import serializers
 from .models import MultipleChoiceQuestion
 
-class QuestionSerializer(serializers.Serializer):
-    question_text = serializers.CharField() # This serializer expects a question_text char field
-    pub_date = serializers.DateTimeField()  # This serializer expects a pub_date date time field
-
-    def create(self, validated_data):
-        """
-        Create and return a new `MultipleChoiceQuestion` instance, given the validated data
-        """
-        return MultipleChoiceQuestion.objects.create(**validated_data)
-    
-    def update(self, instance, validated_data):
-        """
-        Update and return an existing `MultipleChoiceQuestion` instance, given the validated data
-        """
-        instance.question_text = validated_data.get('question_text', instance.question_text)
-        instance.pub_date = validated_data.get('pub_date', instance.pub_date)
-        instance.save()
-        return instance
+class QuestionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = MultipleChoiceQuestion
+        fields = ['id', 'question_text', 'pub_date']
 ```
+
+This automatically maps the fields from our model, and creates default create() and update() methods for us.
 
 ### Update our views using our Serializer
 
@@ -844,6 +832,7 @@ Edit the `polls/views.py` file, and add the following
 # ADD these three imports!
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+from .models import MultipleChoiceQuestion
 from .serializers import QuestionSerializer
 
 # ...
@@ -925,11 +914,78 @@ After clicking the POST button you should see the updated value in the json stru
 
 ### Other cool things to know
 
-- If your serializer is replicating a lot of information that's also contained in the model being (de)serialized then you can use the `ModelSerializer` class to automatically generate the fields and produce a simple default implementations for the `create()` and `update()` methods
-- If you want to support alternative serialization and deserialization styles then you can inherit the `BaseSerializer` class and override these four functions depending on what functionality you want the serializer class to support:
+Use `ModelSerializer` first:
+
+If your serializer is just mirroring fields from a Django model, ModelSerializer saves you time. It will:
+
+  - Automatically generate the fields from the model.
+  - Provide default implementations for .create() and .update().
+
+Use `Serializer` when you need more control:
+
+For example, if your data doesn’t map directly to a model, or if you want to customize validation/representation. You can implement .create() and .update() yourself.
+
+```python
+from rest_framework import serializers
+from .models import MultipleChoiceQuestion
+
+class QuestionSerializer(serializers.Serializer):
+    id = serializers.IntegerField(read_only=True)
+    question_text = serializers.CharField()
+    pub_date = serializers.DateTimeField()
+    is_recent = serializers.SerializerMethodField()
+
+    # custom create logic
+    def create(self, validated_data):
+        return MultipleChoiceQuestion.objects.create(**validated_data)
+
+    # custom update logic
+    def update(self, instance, validated_data):
+        instance.question_text = validated_data.get("question_text", instance.question_text)
+        instance.pub_date = validated_data.get("pub_date", instance.pub_date)
+        instance.save()
+        return instance
+    
+    def get_is_recent(self, obj):
+        return obj.pub_date >= timezone.now() - timezone.timedelta(days=7)
+```
+Here, you see the manual work that ModelSerializer normally handles automatically. This example also gives you model fields plus extra custom behavior, without touching the database model itself.
+
+Use `BaseSerializer` for complete control
+
+If you want to support alternative serialization and deserialization styles then you can inherit the `BaseSerializer` class and override these four functions depending on what functionality you want the serializer class to support:
+
   - `.to_representation()` - Override this to support serialization, for read operations
   - `.to_internal_value()` - Override this to support deserialization, for write operations
   - `.create()` and `.update()` - Override either or both of these to support saving instances.
+
+```python
+from rest_framework.serializers import BaseSerializer
+from .models import MultipleChoiceQuestion
+
+class QuestionTextSerializer(BaseSerializer):
+    def to_representation(self, obj: MultipleChoiceQuestion):
+        return {"question_text": obj.question_text.upper()}
+
+    def to_internal_value(self, data):
+        return {"question_text": data["text"]}
+
+    def create(self, validated_data):
+        return MultipleChoiceQuestion.objects.create(**validated_data)
+
+    def update(self, instance, validated_data):
+        instance.question_text = validated_data.get("question_text", instance.question_text)
+        instance.save()
+        return instance
+```
+
+Here:
+
+  - `.to_representation()` → controls how the model is turned into JSON. We only output `question_text`
+  - `.to_internal_value()` → controls how incoming JSON is turned into Python data.
+  - `.create()` and `.update()` → we still need to define these, just like with a normal `Serializer`
+    - create() makes a new MultipleChoiceQuestion.
+    - update() edits an existing one.
 
 ### More information about DRF
 
@@ -1125,24 +1181,31 @@ First, [create an app](https://dashboard.heroku.com/new-app) on your Heroku dash
 Commit your files and deploy the application using a the heroku command line tool. See [their article on how to do this](https://devcenter.heroku.com/articles/git). Follow the instructions for an existing app, not a new app. Use `heroku git:remote`, **NOT** `heroku create`.
 If you used `heroku create`, please see [this stackoverflow question](https://stackoverflow.com/questions/50421071/git-i-made-a-repository-inside-a-repository-and-now-i-just-want-the-one-big-rep) about how to return to a single repository.
 
-You should have a heroku app. You should see it if you run the `heroku list` command. **In the following, `APPNAME` refers to this heroku app's name.**
+You should have a Heroku app. You should see it if you run the `heroku list` command. **In the following, `APPNAME` refers to this Heroku app's name.**
 
 ### Using a Postgres Database on Heroku
 
-Heroku provides additional services in addition to project hosting. In this case, we will need to add a postgresql database to our app.
+Heroku provides additional services in addition to project hosting. In this case, we will need to add a PostgreSQL database to our app.
 
 ```bash
 heroku addons:create heroku-postgresql:essential-0 --app APPNAME
 ```
 
-You can manage your essentials-0 postgres on your heroku dashboard under the resources section > add-ons.
+For example, if your Heroku name was `lit-oasis-17400` you'd write:
+
+```bash
+heroku addons:create heroku-postgresql:essential-0 --app lit-oasis-17400
+```
+
+You can manage your essentials-0 PostgreSQL on your Heroku dashboard under the resources section > add-ons.
 <br><img id="access-panel" alt="access panel" src="{attach}postgres-add-on.png" style="width: 100%;">
 
-Check that heroku is configuring the database: (You may need to wait a bit for the add-on to be installed)
+Check that Heroku is configuring the database: (You may need to wait a bit for the add-on to be installed)
 
 ```bash
 heroku run "env" --app APPNAME
 ```
+
 
 You should get an output like that contains a line that starts with `DATABASE_URL=postgres://` followed by a username and a password.
 
@@ -1176,9 +1239,9 @@ else:
     }
 ```
 
-Commit your files and deploy the application again using the heroku command line tool.
+Commit your files and deploy the application again using the Heroku command line tool.
 
-Once it is deployed, check that django is now using your heroku postgres database:
+Once it is deployed, check that Django is now using your Heroku PostgreSQL database:
 
 <aside markdown="block" class="option1">
 ```bash
@@ -1222,7 +1285,33 @@ heroku run "python lab3/manage.py createsuperuser" --app APPNAME
 ```
 </aside>
 
-After this if you select your postgres database in the [Heroku dataclips interface](https://data.heroku.com/dataclips/create), you should see your polls_question and poll_choice tables.
+Then follow the instructions to [install PostgreSQL CLI locally](https://devcenter.heroku.com/articles/local-setup-heroku-postgres). If you are using Ubuntu (in a VM like UTM or WSL2) you can simply run `sudo apt-get install postgresql`.
+
+After this you should be able to access your PostgreSQL database with SQL using the Heroku CLI:
+
+```
+$heroku pg:psql --app APPNAME
+# or
+$heroku pg:psql
+Connecting to .
+.
+.
+Type "help" for help.
+
+> \dt
+> \d polls_question
+> \d poll_choice
+> SELECT * FROM polls_question;
+> SELECT * FROM poll_choice;
+```
+
+You may need to add `--app APPNAME` to the `heroku pg:psql` command if Heroku CLI doesn't detect it automatically.
+
+The `\dt` command lists all the tables in PostgreSQL database.
+
+The `\d` command shows the columns for a PostgreSQL table.
+
+The database may be queried using standard SQL as in CMPUT 291. 
 
 Go to `/polls` on your Heroku deployed site, you should be able to use the Polls app from Heroku. 
 
@@ -1319,34 +1408,34 @@ Congratulations on getting your app deployed to Heroku! Let's add some new featu
 
 At this point in the lab, we should have a working poll application deployed on Heroku. However, we need a way to programmatically create questions without using the admin panel! 
 
-**Your task** is to add a new API route at `polls/api/question/add/` that will add a new multiple choice question when a POST request is received! It should return a 405 when any other method is received. The post payload will contain a JSON object with the properties `question` and `answers`. 
+**Your task** is to add a new API route at `polls/api/question/add/` that will add a new multiple choice question when a POST request is received! It should return a 405 when any other method is received. The post payload will contain a JSON object with the properties `question_text` and `choice_options`. 
 
-`question` is a string that MUST be AT LEAST 1 character long and AT MOST 200 characters long. `answers` is a array of answers that MUST have at least 1 answer. Each answer MUST be AT LEAST 1 character long and AT MOST 200 characters long. 
+`question_text` is a string that MUST be AT LEAST 1 character long and AT MOST 200 characters long. `choice_options` is an array of choice objects that MUST have at least 1 choice. Each choice object must have a `choice_text` field that MUST be AT LEAST 1 character long and AT MOST 200 characters long. 
 
 For example...
 
 ```json
 {
-    "question": "Should pineapple be on pizza?",
-    "answers": [
-        "yes",
-        "no"
+    "question_text": "Should pineapple be on pizza?",
+    "choice_options": [
+        {"choice_text": "yes"},
+        {"choice_text": "no"}
     ]
 }
 ```
 
 This should create 1 `MultipleChoiceQuestion` and 2 `MultipleChoiceOption`s. 
 
-If a question or answer is not valid, (or if a `question` or `answers` is not provided) it should not create any `MultipleChoiceQuestion` or `MultipleChoiceOption` and return an appropriately erroring http status response.
+If a question or answer is not valid, (or if `question_text` or `choice_options` is not provided) it should not create any `MultipleChoiceQuestion` or `MultipleChoiceOption` and return an appropriately erroring http status response.
 
 You can return any response so long as the HTTP status code returned is 201.
 
 An example CURL request you can use to test your API is:
 
-```
+```bash
 curl -X POST http://localhost:8000/polls/api/question/add/ \
     -H "Content-Type: application/json" \
-    -d '{"question":"Should pineapple be on pizza?", "answers":["yes", "no"]}'
+    -d '{"question_text":"Should pineapple be on pizza?", "choice_options":[{"choice_text":"yes"}, {"choice_text":"no"}]}'
 ```
 
 **Task Requirements**
@@ -1354,17 +1443,16 @@ curl -X POST http://localhost:8000/polls/api/question/add/ \
 - MUST have a route available at `polls/api/question/add/` (e.g. localhost:8000/polls/api/question/add/)
     - MUST only handle POST and return a 405 when any other method is received.
 - MUST verify the payload is correct
-    - MUST check that `question` and `answers` were provided
-    - MUST check that `question` is between 1-200 characters long
-    - MUST check that each answer is between 1-200 characters long
-    - MUST check that there is AT LEAST one answer in `answers`
-    - MUST check that each answer is at least 1 character long
+    - MUST check that `question_text` and `choice_options` were provided
+    - MUST check that `question_text` is between 1-200 characters long
+    - MUST check that each choice's `choice_text` is between 1-200 characters long
+    - MUST check that there is AT LEAST one choice in `choice_options`
     - MUST not create any models if any validation step fails
     - MUST return an appropriately erroring http status code if validation fails
 - MUST create a `MultipleChoiceQuestion` and multiple `MultipleChoiceOption` when the payload is valid
     - MUST respond with a status code of 201 after it was created
 
-**Hint**: You may find `rest_framework`'s serializers useful for doing the majority of the validation work for you! We also went through it earlier in the lab! ([Documentation](https://www.django-rest-framework.org/api-guide/serializers/))
+**Hint**: You'll need to use nested serializers for this task! You can create a `ChoiceOptionSerializer` for the choice objects and a `QuestionWithChoicesSerializer` that includes the nested choices. The validation will be handled automatically by the serializers based on your model field constraints! ([Documentation](https://www.django-rest-framework.org/api-guide/serializers/))
 
 ### TASK - Comment Section
 
@@ -1548,13 +1636,15 @@ Violation of the restrictions will result in a mark of zero.
 
 Make sure you push to github classroom **BEFORE 4PM on Monday!** You will not be able to push after that!
 
-Submit a link to your repo in the form `https://github.com/uofa-cmput404/s25-labsignment-django-yourgithubname/commit/bunch-of-numbers` on eClass. **Do not** submit a link to a branch, a file, or the clone URL.
+Submit a link to your repo in the form `https://github.com/uofa-cmput404/f25-labsignment-heroku-yourgithubname/commit/bunch-of-numbers` on Canvas. **Do not** submit a link to a branch, a file, or the clone URL.
 
 <p class="warning">If you do not submit a link to your COMMIT on Canvas on time using the correct format above, you will get a zero.</p>
 
 You can submit and then resubmit as many times as you want before the deadline, so submit early and often.
 
 After you receive your grade, you can delete your Heroku app to save credits/money.
+
+* [How to avoid Force Push & Rebase]({filename}/general/dontforcepush.md)
 
 # Collaboration
 
@@ -1566,8 +1656,8 @@ After you receive your grade, you can delete your Heroku app to save credits/mon
 
 # Tips
 
-Django is a complex framework and maybe overwhelming at times. You should consult the documentation should you run into any issues with the framework. 
+Django is a complex framework and may be overwhelming at times. You should consult the documentation should you run into any issues with the framework. 
 
 If you're unable to load a static file or resource, it maybe because you're not referencing it correctly. It may be in a different directory or you have a typo when you are referencing that particular resource using its path. 
 
-Another common problem is not being able to render the templates even though you're directory structure is correct. Make sure your app is registered in `settings.py` otherwise it may not render.
+Another common problem is not being able to render the templates even though your directory structure is correct. Make sure your app is registered in `settings.py` otherwise it may not render.

@@ -15,7 +15,7 @@ Your task is to build a live, collaborative outline editing service.
 
 # Getting Started
 
-1. Get the github classroom link from eClass and clone it.
+1. Get the github classroom link from Canvas and clone it.
 2. Use virtualenv/pip to install flask.
 3. Create an appropriate `.gitignore` file to prevent unwanted files from being added to your repository.
 3. Follow the first steps of the [Flask Quickstart guide](https://flask.palletsprojects.com/en/latest/quickstart/): "A Minimal Application". 
@@ -27,7 +27,7 @@ In order to connect to your flask server inside WSL or another VM from outside W
 
 * As a user, I want to add items to any existing item in the outline, so I can grow my outline.
 * As a user, I want to edit items in the outline, so I can update my outline.
-* As a user, I want to delete items from the outline, becuase I don't want them anymore.
+* As a user, I want to delete items from the outline, because I don't want them anymore.
 * As a user, I want to be able to delete a parent node, and all its children shall be deleted with it.
 * As a user, I want the outline to remember the order of outline items, because the order is important to me.
 * As a user, I want my friend to be able to edit the same outline that I am editing, so that we can collaborate.
@@ -41,7 +41,7 @@ In order to connect to your flask server inside WSL or another VM from outside W
 * Flask should serve the `ui.html` file at path `/`.
 * Flask should serve the `style.css` file at path `/style.css`.
 * Flask should serve the `main.js` file at path `/main.js`.
-* Flask should serve the `favicon.ico` file at path `favicon.ico`.
+* Flask should serve the `favicon.ico` file at path `/favicon.ico`.
 
 You will need to send the correct Content-Type with each file. 
 In flask you can do this by `from flask import Response` then returning from your handler like:
@@ -198,7 +198,7 @@ Violation of the restrictions will result in a mark of zero.
 * A git repository that does not contain built (compiled, transpiled, bundled) or downloaded artifacts, including but not limited to:
     * `virtualenv` `venv` etc.
     * `.pyc` files, `__pycache__` directories.
-* A flask app `outline.py` that serves the files `ui.html`, `main.js`, `favicon.ico`, and `style.css`.
+* A flask app `outliner.py` that serves the files `ui.html`, `main.js`, `favicon.ico`, and `style.css`.
     * Maintains a model of the outline in memory.
     * Makes the outline available by JSON API endpoints.
     * Demonstrates GET POST PUT and DELETE functionality.
@@ -208,11 +208,13 @@ Violation of the restrictions will result in a mark of zero.
 
 Make sure you push to GitHub classroom **BEFORE 4PM on the due date!** You will not be able to push after that!
 
-Submit a link to your repo in the form `https://github.com/uofa-cmput404/s25-labsignment-django-yourgithubname/commit/bunch-of-numbers` on eClass. **Do not** submit a link to a branch, a file, or the clone URL.
+Submit a link to your repo in the form `https://github.com/uofa-cmput404/f25-labsignment-flask-yourgithubname/commit/bunch-of-numbers` on Canvas. **Do not** submit a link to a branch, a file, or the clone URL.
 
 <p class="warning">If you do not submit a link to your COMMIT on Canvas on time using the correct format above, you will get a zero.</p>
 
 You can submit and then resubmit as many times as you want before the deadline, so submit early and often.
+
+* [How to avoid Force Push & Rebase]({filename}/general/dontforcepush.md)
 
 # Collaboration
 

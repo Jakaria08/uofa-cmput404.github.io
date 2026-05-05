@@ -100,7 +100,7 @@ A virtual environment is a tool for managing Python dependencies specific to you
 
 These commands are assuming you are using Linux or macOS. On Windows the commands need to be different.
 We recommend using WSL2 to run Ubuntu in a VM.
-You can install Ubuntu on Windows following [these instructions]({filename}http.md#ubuntu-on-windows).
+You can install Ubuntu on Windows following [these instructions]({filename}/general/environment.md#ubuntu-on-windows).
 
 ### Setting up Python
 
@@ -351,7 +351,8 @@ document.getElementById('convert-btn').addEventListener('click', e => {
 This file (`webapp/markdown-editor.js`) depends on a node dependency and needs to be bundled with a tool called `esbuild` to make it ready to be able to run on a browser.
 
 In your **base repository directory**, run the following command to use `esbuild` to bundle your `markdown-editor.js` file.
-`npx esbuild ./webapp/markdown-editor.js --bundle --minify --sourcemap --outfile=./lab2/wiki/static/markdown-editor.min.js`
+
+```npx esbuild ./webapp/markdown-editor.js --bundle --minify --sourcemap --outfile=./lab2/wiki/static/markdown-editor.min.js```
 
 This command bundles your `markdown-editor.js` file and all the imports that it needs into one huge file called `markdown-editor.min.js`. It is now ready to be included into your Django application!
 
@@ -786,13 +787,15 @@ Ensure your repository contains only the necessary files, and your `.gitignore` 
 
 Make sure you push to GitHub classroom **BEFORE the deadline!** You will not be able to push after that!
 
-Submit a link to your repo in the form `https://github.com/uofa-cmput404/s25-labsignment-django-yourgithubname/commit/bunch-of-numbers` on eClass. **Do not** submit a link to a branch, a file, or the clone URL.
+Submit a link to your repo in the form `https://github.com/uofa-cmput404/s25-labsignment-django-yourgithubname/commit/bunch-of-numbers` on Canvas. **Do not** submit a link to a branch, a file, or the clone URL.
 
 <p class="warning">If you do not submit a link to your COMMIT on Canvas on time using the correct format above, you will get a zero.</p>
 
 You can submit and then resubmit as many times as you want before the deadline, so submit early and often.
 
----
+Do not leave additional comments on the Canvas. Any comments made on the submission after the due date will be removed. Any submission attempt abusing Canvas by making a comment with your repo link after the due date will also be removed. If you have a question about your grade DO NOT comment here, instead, use the instructor contact form on the help page on the website within 10 days of getting your marks back. TAs are not allowed to change grades.
+
+* [How to avoid Force Push & Rebase]({filename}/general/dontforcepush.md)
 
 ### Further Tips
 - If you encounter issues with static files, ensure your file paths are correct and that Django’s `STATIC_URL` is configured properly.

@@ -1,5 +1,5 @@
 Title: How to get Help
-date: 2025-05-05
+date: 2026-02-06
 tags: resources, policy, contact, wellness
 authors: Hazel Victoria Campbell
 status: published
@@ -8,6 +8,9 @@ summary: Communications Expectations
 ----
 
 [TOC]
+
+* [How to avoid Force Push & Rebase]({filename}/general/dontforcepush.md)
+
 
 # Communication Expectations
 
@@ -25,7 +28,7 @@ We will not tolerate harassment, bullying, threats, intimidation, insults, lying
     * Missed final exam:
         * Request a deferred exam from your faculty (Faculty of Science, Faculty of Arts, Faculty of Business, etc.)
     * Missed assignment/lab/project/quiz/lecture... everything except final exam:
-        * Fill in the [absence declaration form](https://docs.google.com/forms/d/e/1FAIpQLSemXP7Bn1zcscmKhKYfK4kckTxyufNl5Fbmr-DJJcqFjyzJ9g/viewform?usp=header) within 2 days of absence.
+        * Fill in the [absence declaration form](https://docs.google.com/forms/d/e/1FAIpQLSfdYgxAjGmNcdqs8c13v6UomZwviuIlHtP545qnUkl8-5VLnA/viewform?usp=dialog) within 2 days of absence.
 * Extensions
     * No individual extensions are ever granted for any reason.
 
@@ -68,7 +71,7 @@ We will not tolerate harassment, bullying, threats, intimidation, insults, lying
 
 **Questions related to the course and course material, especially if the answer could help another student!**
 
-🚀 Posting to the discussion forum increases your changes of a **quick response** since any of the course staff or your classmates are able to answer. 🌠
+🚀 Posting to the discussion forum increases your chances of a **quick response** since any of the course staff or your classmates are able to answer. 🌠
 
 Unless your question is personal (E.g., you are feeling unwell and require an EA, you have a question about your mark), all questions should be posted on the Discussion Forum first. Please do not share code from your implementations (configuration settings are OK). 
 
@@ -79,7 +82,7 @@ Unless your question is personal (E.g., you are feeling unwell and require an EA
 * Be polite, this is not a complaint forum.
 * Follow the [online etiquette guidelines]({attach}online_etiquette_guidelines.pdf).
 
-[The discussion forum is on Canvas.](https://canvas.ualberta.ca/courses/28542/discussion_topics)
+[The discussion forum is on Canvas.](https://canvas.ualberta.ca/courses/32240/discussion_topics/222175)
 
 # Labs Office Hours
 
@@ -108,11 +111,11 @@ TAs are not allowed to change your marks. If you disagree with your marks, [cont
 * Please be polite and courteous.
 * TAs will not re-grade your work or deal with extensions, excuses, illness, etc.
 
-TA office hours are [on Canvas](https://canvas.ualberta.ca/courses/28542/pages/tas-and-office-hours).
+TA office hours are [on Canvas](https://canvas.ualberta.ca/courses/32240/pages/tas-and-office-hours).
 
 # Contact Instructor
 
-Do not email the instructor. Use [the contact instructor form](https://docs.google.com/forms/d/e/1FAIpQLSemXP7Bn1zcscmKhKYfK4kckTxyufNl5Fbmr-DJJcqFjyzJ9g/viewform?usp=header). 
+Do not email the instructor. Use [the contact instructor form](https://docs.google.com/forms/d/e/1FAIpQLSfdYgxAjGmNcdqs8c13v6UomZwviuIlHtP545qnUkl8-5VLnA/viewform?usp=dialog). 
 
 <!--Replies may take several days because there are hundreds of students. Currently, there are more than 600 students.-->
 Using the contact form helps us make sure no one is missed or forgotten about!
@@ -144,6 +147,15 @@ All mental health & wellbeing supports offered to undergraduate students are lis
 
 If you are unsure how to access a resource, please contact the **[Office of the Dean of Students](https://www.ualberta.ca/dean-of-students/index.html)** for a full listing of services.
 
+* [Peer Support Center](https://www.su.ualberta.ca/these-are-your-resources/this-is-your-wellness/peer-support-centre/) - Offers a free, confidential, and non-judgemental place to talk to someone for support. Book an appointment or drop in. Appointments are booked online.
+* [Counselling and Clinical Services](https://www.ualberta.ca/en/current-students/counselling/index.html) - Offers a variety of free mental health related workshops. Students can find descriptions of all topics and register online through their webpage. CCS has a program, [One at a Time Therapy (OAATT)](https://www.ualberta.ca/en/current-students/counselling/individual-therapy-services/index.html) in addition to their other services. OAATT is a single session model that provides a faster route to therapy.
+* [Social Worker Support](https://www.ualberta.ca/en/current-students/wellness-supports/social-worker-support.html): Registered Social Worker to listen to students and connect to resources. Contact them at wellness@ualberta.ca
+
+## Financial Supports
+
+* [Student Financial Supports](https://www.ualberta.ca/en/registrar/scholarships-awards-financial-support/index.html) - Whether a student needs funding from the start or has suddenly encountered an unexpected financial shortfall during the school year, there are a variety of financial supports available to help meet student needs.
+* [Campus Food Bank](https://campusfoodbank.com/) - Provides assistance to our U of A community members experiencing food insecurity. Services include food hampers, cooking classes, low-cost groceries, and transportation to grocery stores.
+
 ## Need Help Now?
 
 It's normal for us to have different mental health experiences throughout the year. Know that there are people who want to help. You can reach out to your friends and access a variety of supports available on and off campus at the **[Need Help Now](https://www.ualberta.ca/current-students/need-help-now.html)** webpage or by calling the **24-hour Distress Line: 780-482-4357 (HELP)**. 
@@ -164,11 +176,21 @@ Building a strong social network can greatly benefit your mental health.
 
 -   **Students Groups: [BearsDen](https://alberta.campuslabs.ca/engage/)** is a one-stop online spot for all student groups on campus. Students can search for events or groups that suit their interests.
 
--   **Campus Events:** Campus events are posted by a variety of groups. Commonly, students can find events on **[uab.ca/events](https://www.ualberta.ca/en/events/index.html#sort=relevancy), [uasuevents.ca,](https://www.su.ualberta.ca/events/)**, [the Digest](https://apps.ualberta.ca/ezpost/archive) or go to their respective **[faculty association's web page](https://www2.su.ualberta.ca/governance/cofa/)** for upcoming events.
+-   **Campus Events:** Campus events are posted by a variety of groups. Commonly, students can find events on **[uab.ca/events](https://www.ualberta.ca/en/events/index.html#sort=relevancy)**, **[uasuevents.ca](https://www.su.ualberta.ca/events/)**, **[the Digest](https://apps.ualberta.ca/ezpost/archive)** or go to their respective **[faculty association's web page](https://www2.su.ualberta.ca/governance/cofa/)** for upcoming events.
 
 - **Unitea:** Connection starts with a conversation, and what better way to connect 
 than over a cup of tea or coffee? You can book either a 1-on-1, or a 
 group tea time led by Unitea hosts. [Click here to learn more about Unitea](https://www.ualberta.ca/en/current-students/wellness-supports/community-engagement/unitea/index.html).
+
+## Career Help
+
+* Attend one of the many upcoming presentations by the [Career Center](https://www.ualberta.ca/en/career-centre/programs-services/presentations.html) to help you prepare for future career opportunities
+* Visit a [Hiring Fair](https://www.ualberta.ca/en/career-centre/connect-with-employers/career-fairs/index.html) on February 9 to meet employers looking to hire U of A students.
+* Visit the Festival of Undergraduate Research and Creative Activities in March to engage and explore resources that can support your exploration of future research
+* Access the [Student Financial Support](https://www.ualberta.ca/en/registrar/scholarships-awards-financial-support/index.html) for grants, scholarship and bursary information.
+* Browse [campusBRIDGE](https://campusbridge.ualberta.ca/home.htm) for employment opportunities
+* Check out [Internships, advising appointments and events](https://www.ualberta.ca/en/career-centre/programs-services/advising-appointments/index.html) from the Career Centre 
+* Explore research opportunities to support your future academic and career goals at the [Undergraduate Research Initiative (URI)](https://www.ualberta.ca/en/current-students/undergraduate-research-initiative/index.html)
 
 # Where to NOT get help
 
@@ -179,16 +201,16 @@ The only official communications are:
 * University of Alberta Google Apps (forms / gmail / etc.) (you must be signed in with your CCID)
 * Canvas University of Alberta
 
-Additionally, you can submit assignments/projects/labs/participation on GitHub Classroom and Mentimeter, but do not use them to ask questions.
+Additionally, you can submit assignments/projects/labs/participation on GitHub Classroom, but do not use them to ask questions.
 
 The instructor/TA are not responsible for and completely disown any unofficial communications.
 
 People on unofficial discussion forums such as discord **sometimes lie**. There is no way to verify the people on Discord are even actually in the class. Previously on unofficial communications like Discord:
 
-* Multiple times, someone lied about a due date was later than it was, leading to students missing deadline and getting a zero.
-* Multiple times, Someone lied about something being required that was not, leading to students doing extra work for no reason.
-* Multiple times, Someone lied about something not being required that actually was, leading to students failing assignments.
-* A student gave someone on discord access to their computer, leading to money from their bank account being stolen.
+* Multiple times, someone lied that a due date was later than it was, leading to students missing deadline and getting a zero.
+* Multiple times, someone lied about something being required that was not, leading to students doing extra work for no reason.
+* Multiple times, someone lied about something not being required that actually was, leading to students failing assignments.
+* A student gave someone on Discord access to their computer, leading to money from their bank account being stolen.
 * Multiple times, someone lied about an instructor retiring when they actually weren't.
 * Someone lied about something being impossible, when it was actually easy, leading to multiple students doing a bunch of extra work.
 * Multiple times, someone pasted code, leading to Plagiarism sanctions against multiple students by the University such as grade reductions, academic probation, being denied graduation.
@@ -196,4 +218,3 @@ People on unofficial discussion forums such as discord **sometimes lie**. There 
 Multiple lies like the above happen on Discord or another unofficial site for this class **every semester**.
 
 Behaviour such as harassment, bullying, threats, intimidation, insults, racism, lying are still subject to sanctions by the [Student Conduct Policy](https://policiesonline.ualberta.ca/PoliciesProcedures/Pages/DispPol.aspx?PID=190&s=https://policiesonline.ualberta.ca/PoliciesProcedures/Pages/Academic.aspx) and the [Student Academic Integrity Policy](https://policiesonline.ualberta.ca/PoliciesProcedures/Pages/DispPol.aspx?PID=193&s=https://policiesonline.ualberta.ca/PoliciesProcedures/Pages/Academic.aspx). However, because the instructor and University has no control of these platforms we also do not have any way to stop or control harassment, bullying, threats, intimidation, insults, racism, lying.
-

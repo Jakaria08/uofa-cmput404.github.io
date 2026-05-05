@@ -14,11 +14,9 @@ In this lab you will make a JS Clock/Timer/Stopwatch/Countdown "single-page" app
 The app won't require any network traffic except loading a single HTML file.
 You will use DHTML, promises, and async/await to connect your code and make sure each piece of code runs at the same time, and that the Clock, Timer, Stopwatch, and Countdown functions all work at the same time, independently.
 
-<!-- ## Warning!
-
-<p class="longWarning">
-Due to the Thanksgiving holiday, there will be no walkthroughs for this lab. You will submit a single HTML file on eClass. Please ensure your code is well-commented so the TAs know that you understand your code. See the Heroku lab description for detailed examples of good vs bad comments.
-</p> -->
+<!--<p class="longWarning">
+Due to the Thanksgiving holiday, there will be no walkthroughs for this lab. You will submit a single HTML file on Canvas. Please ensure your code is well-commented so the TAs know that you understand your code. See the Language Assignment and the <a href="#comments">comments section</a> below for detailed examples of good vs bad comments.
+</p>-->
 
 ## Learning Goals
 
@@ -108,7 +106,7 @@ Every time `Ticker` notifies the `Clock`, use JS to update the element in the DO
 * When the stop button is clicked, the stop watch should **pause**.
 * When the stop watch is **not** running, the stop button should be disabled.
 * When the reset button is pressed, the stopwatch should start over from zero.
-* The stopwatch should display the elapsed time in h:mm:ss.sss seconds, with hours, minutes, seconds, and .miliseconds.
+* The stopwatch should display the elapsed time in h:mm:ss.sss seconds, with hours, minutes, seconds, and .milliseconds.
     * If there's less than 10 minutes or seconds it should show the leading zero.
     * If there's less than 100 ms, it should also show the leading zeroes.
 
@@ -155,6 +153,51 @@ Every time `Ticker` notifies the `Clock`, use JS to update the element in the DO
     * Each part of the app should be separated, visually distinct, and titled.
     * Your CSS must make sure the element with the message about the countdown being over is hidden until the countdown is over.
 
+
+<!-- 
+# Comments
+
+Your code must include clear, helpful comments that demonstrate your understanding of what you're building and why certain decisions were made. 
+
+## What We Expect
+
+Comments should explain **why** the code exists and **why** it's written the way it is, not **what** the code is doing (which should be clear from reading the code itself).
+
+Good comments provide context about:
+
+* Why a particular approach was chosen
+* Why a conditional check is necessary and what would happen without it
+* Why a function is being called at this point in the code
+* Why certain patterns are implemented
+* How different parts of your code relate to each other
+
+<p class="longWarning">
+Every function/method/class of JavaScript code must have a comment explaining why it exists. Your lab will be evaluated on both the functionality of your code and the quality of your comments. Non-trivial lines should also have good, explanatory comments. <b>You will be marked on whether or not your comments convince the TA that you know why and how your code works.</b>
+</p>
+
+## Examples
+
+### Good Comments for This Lab
+
+```javascript
+/* 
+The Ticker must be a singleton because multiple tickers would create multiple setTimeout chains, causing the clock/timer/stopwatch/countdown to update at inconsistent intervals and waste resources.
+*/
+if (Ticker.instance) {
+    throw new Error("Ticker already exists");
+}
+```
+
+### Bad Comments for This Lab
+
+```javascript
+// Check if Ticker.instance exists
+if (Ticker.instance) {
+    throw new Error("Ticker already exists");
+}
+```
+-->
+
 # Restrictions
 
 Violation of the restrictions will result a mark of zero.
@@ -185,7 +228,7 @@ Upload your entire app as a single HTML file directly to Canvas.
 * Collaboration must be documented in your source code.
 * Any source code you got from anywhere else must be cited in the source code. This includes code from LLMs.
 * You can only use source code that **you understand**: see the [lab marking info]({filename}/general/labs.md#lab-marking)
-* For more information see the collaboration section in the outline: [{filename}/general/outline.md#consultation-assignments-labs]
+* For more information see the [collaboration section in the outline]({filename}/general/outline.md#consultation-assignments-labs)
 
 # Hints
 
