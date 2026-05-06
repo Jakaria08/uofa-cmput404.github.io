@@ -47,6 +47,8 @@ Choose at least 3 other groups to work with!
 
 ## Scenario 
 
+<!-- LTeX: rules-=PHRASE_REPETITION rules-=ENGLISH_WORD_REPEAT_BEGINNING_RULE -->
+
 I log into SocialDistribution. I see my stream which is filled with
 entries that have arrived in my inbox combined with public entries that my node knows about.
 I browse them and I click like on anything by my friend Steph who is on another node.
@@ -178,7 +180,7 @@ Entries, likes, comments, follows are all sent to the inboxes of the authors tha
     * As an author, I want to like comments that I can access, so I can show my appreciation.
     * As an author, when someone sends me a public entry I want to see the likes, so I can tell if it's good or not.
     * As an author, comments on my friends-only entries are visible only to my friends and the comment's author.
-* node Management
+* Node Management
     * As a node admin, images can be hosted on my node, so that my users can use them in their CommonMark entries.
     * As a node admin, I want to be able to add, modify, and delete authors, to fix problems or remove unwanted users.
     * As a node admin, I want to be able to allow users to sign-up but require my approval to complete sign-up and use my node, so that I can prevent unwanted users and spambots.
@@ -330,44 +332,45 @@ Entries, likes, comments, follows are all sent to the inboxes of the authors tha
         * Two different authors on two different nodes could be both serial #123
         * Two different entries from two different authors could be both serial c4f71e54-7b41-448e-a4fb-031f1a20007b
 
+<!-- LTeX: rules-=WHITESPACE_RULE rules-=CONSECUTIVE_SPACES -->
 
-Frontend/API Visibility | Admin             | Friend        | Follower       | Everyone <!-- @LT-IGNORE:CONSECUTIVE_SPACES@ @LT-IGNORE:WHITESPACE_RULE@ -->
+Frontend/API Visibility | Admin             | Friend        | Follower       | Everyone 
 ------------------------|-------------------|---------------|----------------|----------------
-Public                  | control panel     | link + stream |  link + stream |  link + stream <!-- @LT-IGNORE:CONSECUTIVE_SPACES@ @LT-IGNORE:WHITESPACE_RULE@ -->
-Unlisted                | control panel     | link + stream |  link + stream |  link <!-- @LT-IGNORE:CONSECUTIVE_SPACES@ @LT-IGNORE:WHITESPACE_RULE@ -->
+Public                  | control panel     | link + stream |  link + stream |  link + stream 
+Unlisted                | control panel     | link + stream |  link + stream |  link 
 Friends Only            | control panel     | authenticated |                |
-Deleted                 | control panel     |               |                | <!-- @LT-IGNORE:CONSECUTIVE_SPACES@ @LT-IGNORE:WHITESPACE_RULE@ -->
+Deleted                 | control panel     |               |                | 
 
 ----
 
-Database/Node2Node     | Type | Author         | Friend                  | Follower                   | Anyone <!-- @LT-IGNORE:CONSECUTIVE_SPACES@ @LT-IGNORE:WHITESPACE_RULE@ -->
+Database/Node2Node     | Type | Author         | Friend                  | Follower                   | Anyone 
 -----------------------|------|----------------|-------------------------|----------------------------|--------
-New Public             | push | from           | to `inbox`              | to `inbox`                 | <!-- @LT-IGNORE:CONSECUTIVE_SPACES@ @LT-IGNORE:WHITESPACE_RULE@ -->
-New Unlisted           | push |                | to `inbox`              | to `inbox`                 | <!-- @LT-IGNORE:CONSECUTIVE_SPACES@ @LT-IGNORE:WHITESPACE_RULE@ -->
-New Friends Only       | push |                | to `inbox`              |                            | <!-- @LT-IGNORE:CONSECUTIVE_SPACES@ @LT-IGNORE:WHITESPACE_RULE@ -->
-Deleted Public         | push |                | to `inbox`              | to `inbox`                 | to inboxes entry was sent to before <!-- @LT-IGNORE:CONSECUTIVE_SPACES@ @LT-IGNORE:WHITESPACE_RULE@ -->
-Deleted Unlisted       | push |                | to `inbox`              | to `inbox`                 | to inboxes entry was sent to before <!-- @LT-IGNORE:CONSECUTIVE_SPACES@ @LT-IGNORE:WHITESPACE_RULE@ -->
-Deleted Friends Only   | push |                | to `inbox`              |                            | to inboxes entry was sent to before <!-- @LT-IGNORE:CONSECUTIVE_SPACES@ @LT-IGNORE:WHITESPACE_RULE@ -->
-Edited Public          | push |                | to `inbox`              | to `inbox`                 | to inboxes entry was sent to before <!-- @LT-IGNORE:CONSECUTIVE_SPACES@ @LT-IGNORE:WHITESPACE_RULE@ -->
-Edited Unlisted        | push | from           | to `inbox`              | to `inbox`                 | to inboxes entry was sent to before <!-- @LT-IGNORE:CONSECUTIVE_SPACES@ @LT-IGNORE:WHITESPACE_RULE@ -->
-Edited Friends Only    | push | from           | to `inbox`              |                            | to inboxes entry was sent to before <!-- @LT-IGNORE:CONSECUTIVE_SPACES@ @LT-IGNORE:WHITESPACE_RULE@ -->
-Commented Public       | push | to `inbox`     | from                    | from                       | from <!-- @LT-IGNORE:CONSECUTIVE_SPACES@ @LT-IGNORE:WHITESPACE_RULE@ -->
-Commented Unlisted     | push | to `inbox`     | from                    | from                       | from <!-- @LT-IGNORE:CONSECUTIVE_SPACES@ @LT-IGNORE:WHITESPACE_RULE@ -->
-Commented Friends Only | push | to `inbox`     | from                    |                            | <!-- @LT-IGNORE:CONSECUTIVE_SPACES@ @LT-IGNORE:WHITESPACE_RULE@ -->
-Commented Public       | push | from           | *not yet implemented*   | *not yet implemented*      | *not yet implemented* <!-- @LT-IGNORE:CONSECUTIVE_SPACES@ @LT-IGNORE:WHITESPACE_RULE@ -->
-Commented Unlisted     | push | from           | *not yet implemented*   | *not yet implemented*      | <!-- @LT-IGNORE:CONSECUTIVE_SPACES@ @LT-IGNORE:WHITESPACE_RULE@ -->
-Commented Friends Only | push | from           | *not yet implemented*   |                            | <!-- @LT-IGNORE:CONSECUTIVE_SPACES@ @LT-IGNORE:WHITESPACE_RULE@ -->
-Liked Public           | push | to `inbox`     | from                    | from                       | from <!-- @LT-IGNORE:CONSECUTIVE_SPACES@ @LT-IGNORE:WHITESPACE_RULE@ -->
-Liked Unlisted         | push | to `inbox`     | from                    | from                       | from <!-- @LT-IGNORE:CONSECUTIVE_SPACES@ @LT-IGNORE:WHITESPACE_RULE@ -->
-Liked Friends Only     | push | to `inbox`     | from                    |                            | <!-- @LT-IGNORE:CONSECUTIVE_SPACES@ @LT-IGNORE:WHITESPACE_RULE@ -->
-Follow                 | push | to `inbox`     |                         |                            | from <!-- @LT-IGNORE:CONSECUTIVE_SPACES@ @LT-IGNORE:WHITESPACE_RULE@ -->
-Follow-back (friend)   | push | from           |                         | to `inbox`                 | <!-- @LT-IGNORE:CONSECUTIVE_SPACES@ @LT-IGNORE:WHITESPACE_RULE@ -->
-Unfollow               | push |                | *not yet implemented*   | *not yet implemented*      | <!-- @LT-IGNORE:CONSECUTIVE_SPACES@ @LT-IGNORE:WHITESPACE_RULE@ -->
-View Public            | pull | to `entry`      | optional from           | optional from              | optional from <!-- @LT-IGNORE:CONSECUTIVE_SPACES@ @LT-IGNORE:WHITESPACE_RULE@ -->
-View Unlisted          | pull | to `entry`      | optional from           | optional from              | optional from <!-- @LT-IGNORE:CONSECUTIVE_SPACES@ @LT-IGNORE:WHITESPACE_RULE@ -->
-View Friends-Only      | pull |                | *not yet implemented*   |                            | <!-- @LT-IGNORE:CONSECUTIVE_SPACES@ @LT-IGNORE:WHITESPACE_RULE@ -->
-View Deleted           | pull |                |                         |                            | <!-- @LT-IGNORE:CONSECUTIVE_SPACES@ @LT-IGNORE:WHITESPACE_RULE@ -->
-View Following         | pull | to `followers` | optional from           | optional from              | <!-- @LT-IGNORE:CONSECUTIVE_SPACES@ @LT-IGNORE:WHITESPACE_RULE@ -->
+New Public             | push | from           | to `inbox`              | to `inbox`                 | 
+New Unlisted           | push |                | to `inbox`              | to `inbox`                 | 
+New Friends Only       | push |                | to `inbox`              |                            | 
+Deleted Public         | push |                | to `inbox`              | to `inbox`                 | to inboxes entry was sent to before 
+Deleted Unlisted       | push |                | to `inbox`              | to `inbox`                 | to inboxes entry was sent to before 
+Deleted Friends Only   | push |                | to `inbox`              |                            | to inboxes entry was sent to before 
+Edited Public          | push |                | to `inbox`              | to `inbox`                 | to inboxes entry was sent to before 
+Edited Unlisted        | push | from           | to `inbox`              | to `inbox`                 | to inboxes entry was sent to before 
+Edited Friends Only    | push | from           | to `inbox`              |                            | to inboxes entry was sent to before 
+Commented Public       | push | to `inbox`     | from                    | from                       | from 
+Commented Unlisted     | push | to `inbox`     | from                    | from                       | from 
+Commented Friends Only | push | to `inbox`     | from                    |                            | 
+Commented Public       | push | from           | *not yet implemented*   | *not yet implemented*      | *not yet implemented* 
+Commented Unlisted     | push | from           | *not yet implemented*   | *not yet implemented*      | 
+Commented Friends Only | push | from           | *not yet implemented*   |                            | 
+Liked Public           | push | to `inbox`     | from                    | from                       | from 
+Liked Unlisted         | push | to `inbox`     | from                    | from                       | from 
+Liked Friends Only     | push | to `inbox`     | from                    |                            | 
+Follow                 | push | to `inbox`     |                         |                            | from 
+Follow-back (friend)   | push | from           |                         | to `inbox`                 | 
+Unfollow               | push |                | *not yet implemented*   | *not yet implemented*      | 
+View Public            | pull | to `entry`      | optional from           | optional from              | optional from 
+View Unlisted          | pull | to `entry`      | optional from           | optional from              | optional from 
+View Friends-Only      | pull |                | *not yet implemented*   |                            | 
+View Deleted           | pull |                |                         |                            | 
+View Following         | pull | to `followers` | optional from           | optional from              | 
 
 Notes on the above tables:
 
@@ -1613,8 +1616,8 @@ The most successful teams:
 * Excellent 8 (A+): Clean code. Meets the requirements and adds extra polish. Everything is tested properly. Passes all tests. The API is documented in detail. The API is implemented as specified, and adds extra for compatibility. The UI meets all requirements, and has extra polish.
 * Good 7 (B+): Code is mostly clean but has some rough spots. At most a couple of minor bugs. Almost all the requirements are met. Everything is tested. Passes almost all tests. Almost everything is documented. Almost all the API is implemented according to spec.
 * Satisfactory 6 (C+): Code is low quality but working. Some bugs. Inconsistency. ¾ of the requirements are met. Almost everything is tested. Passes most tests. Most things are documented. API is implemented but doesn't meet spec.
-* Unsatisfactory 4 (D): There are significant bugs and issues. ½ of the requirements are met. ½ the tests exist and pass. At least ½ of the documentation is present. At least ½ of the API exists and works. At least ½ of the UI exists and works. At least ½ of the API exists and works. <!-- @LT-IGNORE:ENGLISH_WORD_REPEAT_BEGINNING_RULE@ -->
-* Partial Attempt 1 (F): Poor quality. Large pieces of code missing, some pieces exist. Some requirements are met. Some of the UI exists. Some of the API exists. <!-- @LT-IGNORE:ENGLISH_WORD_REPEAT_BEGINNING_RULE@ -->
+* Unsatisfactory 4 (D): There are significant bugs and issues. ½ of the requirements are met. ½ the tests exist and pass. At least ½ of the documentation is present. At least ½ of the API exists and works. At least ½ of the UI exists and works. At least ½ of the API exists and works. 
+* Partial Attempt 1 (F): Poor quality. Large pieces of code missing, some pieces exist. Some requirements are met. Some of the UI exists. Some of the API exists. 
 * Failure 0 (F): Missing. Not attempted. Not complete enough to make an evaluation. Violated a restriction. 
 
 UI amount complete is marked by your TA testing user stories manually.
@@ -1664,7 +1667,7 @@ For this part you need:
 
 ### Submission
 
-Due 4PM. <!-- @LT-IGNORE:CONFUSION_DUE_DO@ -->
+Due 4PM. 
 
 Submit only the link to the commit in the following format:
 
@@ -1724,10 +1727,10 @@ https://github.com/uofa-cmput404/f24-project-orange/commit/8e2cac3a0c0fdd01f039e
     * User Stories API: Less than ¼ of the user stories are usable using the API or major deviations from the specification.
     * Test Cases: Less than ¼ of the user stories are usable using the API or major deviations from the specification, or test cases are present but do not actually test what they say they are testing.
     * UI Design: Some pieces of the HTML & CSS exist, but some pieces of the HTML & CSS are missing that would be needed to do ½ of the user stories.
-    * Tool use: Very limited of tool use. Git is disorganized. Git exists but it has built artifacts in it. Git has commits that do not contribute anything, but have large diffs, such as changing whitespace of every line in a file.<!-- @LT-IGNORE:ENGLISH_WORD_REPEAT_BEGINNING_RULE@ -->
+    * Tool use: Very limited of tool use. Git is disorganized. Git exists but it has built artifacts in it. Git has commits that do not contribute anything, but have large diffs, such as changing whitespace of every line in a file.
     * TA Walkthrough: Showstopper bugs. Major missing pieces.
     * Web Service API Documentation: Major pieces of documentation are missing or only has autogenerated documentation. 
-    * Standards & Code Style: HTML errors, browser errors, CSS errors, JS errors, Python errors. Code is disorganized. Code is hard to find. Code is missing. <!-- @LT-IGNORE:ENGLISH_WORD_REPEAT_BEGINNING_RULE@ -->
+    * Standards & Code Style: HTML errors, browser errors, CSS errors, JS errors, Python errors. Code is disorganized. Code is hard to find. Code is missing. 
 * No attempt
     * User Stories UI: No user stories are usable using the UI.
     * User Stories API: No user stories are usable using the API.
@@ -1742,7 +1745,7 @@ https://github.com/uofa-cmput404/f24-project-orange/commit/8e2cac3a0c0fdd01f039e
 
 ### Submission
 
-Due 4PM. <!-- @LT-IGNORE:CONFUSION_DUE_DO@ -->
+Due 4PM. 
 
 Submit only the link to the commit in the following format:
 
@@ -1802,10 +1805,10 @@ https://github.com/uofa-cmput404/f24-project-orange/commit/8e2cac3a0c0fdd01f039e
     * User Stories API: Less than half of the user stories are usable using the API or major deviations from the specification.
     * Test Cases: Less than half of the user stories are usable using the API or major deviations from the specification, or test cases are present but do not actually test what they say they are testing.
     * UI Design: Some pieces of the HTML & CSS exist, but some pieces of the HTML & CSS are missing that would be needed to do some of the user stories.
-    * Tool use: Very limited of tool use. Git is disorganized. Git exists but it has built artifacts in it. Git has commits that do not contribute anything, but have large diffs, such as changing whitespace of every line in a file.<!-- @LT-IGNORE:ENGLISH_WORD_REPEAT_BEGINNING_RULE@ -->
+    * Tool use: Very limited of tool use. Git is disorganized. Git exists but it has built artifacts in it. Git has commits that do not contribute anything, but have large diffs, such as changing whitespace of every line in a file.
     * TA Walkthrough: Showstopper bugs. Major missing pieces.
     * Web Service API Documentation: Major pieces of documentation are missing or only has autogenerated documentation. 
-    * Standards & Code Style: HTML errors, browser errors, CSS errors, JS errors, Python errors. Code is disorganized. Code is hard to find. Code is missing. <!-- @LT-IGNORE:ENGLISH_WORD_REPEAT_BEGINNING_RULE@ -->
+    * Standards & Code Style: HTML errors, browser errors, CSS errors, JS errors, Python errors. Code is disorganized. Code is hard to find. Code is missing. 
 * No attempt
     * **Addressing Feedback**: None of TA's suggestions were implemented, TA approves of none of the changes made to address feedback.
     * User Stories UI: No user stories are usable using the UI.
@@ -1842,7 +1845,7 @@ This user story now also includes entries from remote nodes. The same principle 
 
 ### Submission
 
-Due 4PM. <!-- @LT-IGNORE:CONFUSION_DUE_DO@ -->
+Due 4PM. 
 
 Submit only the link to the commit in the following format:
 
@@ -1905,10 +1908,10 @@ https://github.com/uofa-cmput404/f24-project-orange/commit/8e2cac3a0c0fdd01f039e
     * User Stories API: Less than half of the user stories are usable using the API or major deviations from the specification.
     * Test Cases: Less than half of the user stories are usable using the API or major deviations from the specification, or test cases are present but do not actually test what they say they are testing.
     * UI Design: Some pieces of the HTML & CSS exist, but some pieces of the HTML & CSS are missing that would be needed to do some of the user stories.
-    * Tool use: Very limited of tool use. Git is disorganized. Git exists but it has built artifacts in it. Git has commits that do not contribute anything, but have large diffs, such as changing whitespace of every line in a file.<!-- @LT-IGNORE:ENGLISH_WORD_REPEAT_BEGINNING_RULE@ -->
+    * Tool use: Very limited of tool use. Git is disorganized. Git exists but it has built artifacts in it. Git has commits that do not contribute anything, but have large diffs, such as changing whitespace of every line in a file.
     * TA Walkthrough: Showstopper bugs. Major missing pieces.
     * Web Service API Documentation: Major pieces of documentation are missing or only has autogenerated documentation. 
-    * Standards & Code Style: HTML errors, browser errors, CSS errors, JS errors, Python errors. Code is disorganized. Code is hard to find. Code is missing. <!-- @LT-IGNORE:ENGLISH_WORD_REPEAT_BEGINNING_RULE@ -->
+    * Standards & Code Style: HTML errors, browser errors, CSS errors, JS errors, Python errors. Code is disorganized. Code is hard to find. Code is missing. 
 * No attempt
     * Web Service Coordination: No user stories are working between two nodes.
     * Addressing Feedback: None of TA's suggestions were implemented, TA approves of none of the changes made to address feedback.
@@ -1939,7 +1942,7 @@ NOTE: For part 4, select **one** node from part 3 to act as your team's main nod
 
 ### Submission
 
-Due 4PM. <!-- @LT-IGNORE:CONFUSION_DUE_DO@ -->
+Due 4PM. 
 
 Submit only the link to the commit in the following format:
 
@@ -2007,10 +2010,10 @@ https://github.com/uofa-cmput404/f24-project-orange/commit/8e2cac3a0c0fdd01f039e
     * User Stories API: Less than half of the user stories are usable using the API or major deviations from the specification.
     * Test Cases: Less than half of the user stories are usable using the API or major deviations from the specification, or test cases are present but do not actually test what they say they are testing.
     * UI Design: Some pieces of the HTML & CSS exist, but some pieces of the HTML & CSS are missing that would be needed to do some of the user stories.
-    * Tool use: Very limited of tool use. Git is disorganized. Git exists but it has built artifacts in it. Git has commits that do not contribute anything, but have large diffs, such as changing whitespace of every line in a file.<!-- @LT-IGNORE:ENGLISH_WORD_REPEAT_BEGINNING_RULE@ -->
+    * Tool use: Very limited of tool use. Git is disorganized. Git exists but it has built artifacts in it. Git has commits that do not contribute anything, but have large diffs, such as changing whitespace of every line in a file.
     * TA Walkthrough: Showstopper bugs. Major missing pieces.
     * Web Service API Documentation: Major pieces of documentation are missing or only has autogenerated documentation. 
-    * Standards & Code Style: HTML errors, browser errors, CSS errors, JS errors, Python errors. Code is disorganized. Code is hard to find. Code is missing. <!-- @LT-IGNORE:ENGLISH_WORD_REPEAT_BEGINNING_RULE@ -->
+    * Standards & Code Style: HTML errors, browser errors, CSS errors, JS errors, Python errors. Code is disorganized. Code is hard to find. Code is missing. 
 * No attempt
     * Web Service Coordination: No user stories are coordinating with another team's node.
     * Addressing Feedback: None of TA's suggestions were implemented, TA approves of none of the changes made to address feedback.
@@ -2028,7 +2031,7 @@ https://github.com/uofa-cmput404/f24-project-orange/commit/8e2cac3a0c0fdd01f039e
 
 ### Submission
 
-Due 4PM. <!-- @LT-IGNORE:CONFUSION_DUE_DO@ -->
+Due 4PM. 
 
 Submit only the link to the commit in the following format:
 
@@ -2140,10 +2143,10 @@ During the other team's presentations:
     * User Stories API: Less than half of the user stories are usable using the API or major deviations from the specification.
     * Test Cases: Less than half of the user stories are usable using the API or major deviations from the specification, or test cases are present but do not actually test what they say they are testing.
     * UI Design: Some pieces of the HTML & CSS exist, but some pieces of the HTML & CSS are missing that would be needed to do some of the user stories.
-    * Tool use: Very limited of tool use. Git is disorganized. Git exists but it has built artifacts in it. Git has commits that do not contribute anything, but have large diffs, such as changing whitespace of every line in a file.<!-- @LT-IGNORE:ENGLISH_WORD_REPEAT_BEGINNING_RULE@ -->
+    * Tool use: Very limited of tool use. Git is disorganized. Git exists but it has built artifacts in it. Git has commits that do not contribute anything, but have large diffs, such as changing whitespace of every line in a file.
     * TA Walkthrough: Showstopper bugs. Major missing pieces.
     * Web Service API Documentation: Major pieces of documentation are missing or only has autogenerated documentation. 
-    * Standards & Code Style: HTML errors, browser errors, CSS errors, JS errors, Python errors. Code is disorganized. Code is hard to find. Code is missing. <!-- @LT-IGNORE:ENGLISH_WORD_REPEAT_BEGINNING_RULE@ -->
+    * Standards & Code Style: HTML errors, browser errors, CSS errors, JS errors, Python errors. Code is disorganized. Code is hard to find. Code is missing. 
 * No attempt
     * **Presentation**: No presentation.
     * **Video**: No video of the app exists.
